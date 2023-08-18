@@ -56,7 +56,10 @@ class Map {
     }
 
     static IsCollider(x: number, y: number): boolean {
-        if (x > 0 && x < this.columns && y > 0 && y < this.lines) {
+        if(x < 0 || y < 0 || x > this.lines-1 || y > this.columns-1) {
+            return true;
+        }
+        else if (x > 0 && x < this.columns && y > 0 && y < this.lines) {
             return this.GetMap(x, y) === true;
         }
         return false;

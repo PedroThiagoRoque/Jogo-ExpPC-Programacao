@@ -56,7 +56,8 @@ class Player {
                 y += 1;
                 break;
         }
-        this.SetPosition(x, y);
+        if(!Map.IsCollider(x,y))
+            this.SetPosition(x, y);
     }
 
     static hashRotation: HashRotation = {
