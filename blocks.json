@@ -25,7 +25,7 @@
     },
     {
         "type": "block_move",
-        "message0": "Move para Frente",
+        "message0": "Andar para Frente",
         "colour": 300,
         "previousStatement": null,
         "nextStatement": null,
@@ -34,7 +34,7 @@
     },
     {
         "type": "block_left",
-        "message0": "Girar Para Esquerda",
+        "message0": "Virar Para Esquerda",
         "colour": 300,
         "previousStatement": null,
         "nextStatement": null,
@@ -43,7 +43,7 @@
     },
     {
         "type": "block_right",
-        "message0": "Girar Para Direita",
+        "message0": "Virar Para Direita",
         "colour": 300,
         "previousStatement": null,
         "nextStatement": null,

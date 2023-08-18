@@ -35,7 +35,12 @@ class CommandController {
             if (block.inputs.false) command.false = block.inputs.false.block;
         }
         if (command instanceof CommandFor) {
-            command.command = block.inputs.command.block;
+            var cmd = block.inputs.command
+            while(cmd.block.next) {
+                command.add(cmd.block.type)
+                cmd = cmd.block.next
+            }
+            command.add(cmd.block.type)
             command.iterator = block.fields.iterator;
         }
         return command;

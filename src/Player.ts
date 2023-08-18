@@ -33,6 +33,7 @@ class Player {
 
     static AddItem(item: Item){
         this.inventory.push(item);
+        this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
     }
 
     static Reset() {

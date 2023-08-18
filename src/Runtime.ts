@@ -21,32 +21,7 @@ class Runtime {
         let command = this.command.next;
 
         while (command != null) {
-            if (command instanceof CommandIF) {
-
-            } else if (command instanceof CommandFor) {
-                for (let i = 0; i < command.iterator; i++) {
-                    Player.Move();
-                    await Runtime.delay(800);
-                }
-            } else {
-                switch (command.name) {
-                    case "block_move":
-                        Player.Move();
-                        break;
-                    case "block_left":
-                        Player.Left();
-                        break;
-                    case "block_right":
-                        Player.Right();
-                        break;
-                    case "block_pickup":
-                        const item = Map.RemoveItem(Player.position.x, Player.position.y);
-                        if(item){
-                            Player.AddItem(item);
-                        }
-                        break;
-                }
-            }
+            await this.RunCommand(command);
             await Runtime.delay(800);
             command = command.next;
         }
@@ -58,6 +33,38 @@ class Runtime {
             }
         }*/
     }
+
+    async RunCommand(command: Command) {
+        if (command instanceof CommandIF) {
+
+        } else if (command instanceof CommandFor) {
+            for (let i = 0; i < command.iterator; i++) {
+                for (let cmd of command.getCommands()) {
+                    await this.RunCommand(cmd);
+                    await Runtime.delay(800);
+                }
+            }
+        } else {
+            switch (command.name) {
+                case "block_move":
+                    Player.Move();
+                    break;
+                case "block_left":
+                    Player.Left();
+                    break;
+                case "block_right":
+                    Player.Right();
+                    break;
+                case "block_pickup":
+                    const item = Map.RemoveItem(Player.position.x, Player.position.y);
+                    if (item) {
+                        Player.AddItem(item);
+                    }
+                    break;
+            }
+        }
+    }
+
 }
 
 export default Runtime;
