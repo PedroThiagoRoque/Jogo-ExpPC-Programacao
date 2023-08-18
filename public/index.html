@@ -69,12 +69,10 @@
             0%,
             100% {
                 transform: translateY(0);
-                /* Posição inicial e final - sem deslocamento vertical *
         }
 
         50% {
             transform: translateY(-10px);
-            /* Meio da animação - deslocamento para cima *
         }
         }
 
@@ -95,7 +93,7 @@
             transform: rotate(180deg);
         }*/
 
-        
+
         #player {
             width: 29px;
             height: 29px;
@@ -105,47 +103,70 @@
             position: absolute;
             z-index: 99;
         }
-        #map .grid{
+
+        #map .grid {
             position: absolute;
-            top:0;
-            left:0;
-            right:0;
-            bottom:0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             flex-direction: row;
         }
-        #map .grid div>div{
+
+        #map .grid div>div {
             width: 28px;
             height: 28px;
-            border:0.5px solid transparent; 
+            border: 0.5px solid transparent;
         }
-        #map .grid div>div.border{
+
+        #map .grid div>div.border {
             border-color: #000;
             background-color: #959ca4;
         }
-        #map #items .item{
-            position:absolute;
-            width:30px;
-            height:30px;
-        }
-        #play{
+
+        #map #items .item {
             position: absolute;
-            top:10px;
-            left:calc(100vw - 700px - 60px - 10px);
+            width: 30px;
+            height: 30px;
+        }
+
+        #play {
+            position: absolute;
+            top: 10px;
+            left: calc(100vw - 700px - 60px - 10px);
             width: 60px;
             height: 60px;
             cursor: pointer;
         }
-        #play.disabled{
+
+        #play.disabled {
             filter: grayscale(1);
             pointer-events: none;
         }
-        #message{
+
+        #message {
             position: absolute;
-            left:202px;
+            left: 202px;
             bottom: 0;
             width: calc(100vw - 700px - 202px);
             background-color: #ddd;
+        }
+
+        .item {
+            animation: jump .5s ease-in-out infinite;
+        }
+
+        @keyframes jump {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
     </style>
 </head>

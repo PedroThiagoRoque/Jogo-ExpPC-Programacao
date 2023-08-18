@@ -39,6 +39,12 @@ class Map {
     static CreateItem(x: number, y: number) {
         const item = new Item("Queijo", "queijo.png");
         this.SetMap(x, y, item);
+
+        const item2 = new Item("Pao", "pao.png");
+        this.SetMap(x, y-4, item2);
+
+        const item3 = new Item("Presunto", "presunto.png");
+        this.SetMap(x, y-8, item3);
     }
 
     static GetItem(x: number, y: number): Item | false {
