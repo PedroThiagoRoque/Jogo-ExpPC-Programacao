@@ -1,3 +1,4 @@
+import Item from "./Item";
 import Map from "./Map";
 
 type Transform = {
@@ -19,6 +20,7 @@ class Player {
 
     private static playerElement: HTMLDivElement;
     private static transform: Transform;
+    private static inventory: Array<Item> = [];
 
     static Start() {
         this.playerElement = document.querySelector("#player");
@@ -27,6 +29,10 @@ class Player {
             rotation: "up"
         }
         this.Reset();
+    }
+
+    static AddItem(item: Item){
+        this.inventory.push(item);
     }
 
     static Reset() {

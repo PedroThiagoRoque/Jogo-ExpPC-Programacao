@@ -40,7 +40,10 @@ class Runtime {
                         Player.Right();
                         break;
                     case "block_pickup":
-                        console.log(Map.GetPosition(Player.position.x, Player.position.y));
+                        const item = Map.RemoveItem(Player.position.x, Player.position.y);
+                        if(item){
+                            Player.AddItem(item);
+                        }
                         break;
                 }
             }

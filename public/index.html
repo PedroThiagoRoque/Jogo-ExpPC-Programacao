@@ -103,6 +103,7 @@
             background-size: 29px;
             background-image: url("personagem.png");
             position: absolute;
+            z-index: 99;
         }
         #map .grid{
             position: absolute;
@@ -120,6 +121,11 @@
         }
         #map .grid div>div.border{
             border-color: #000;
+        }
+        #map #items .item{
+            position:absolute;
+            width:30px;
+            height:30px;
         }
         #play{
             position: absolute;
@@ -150,6 +156,7 @@
             <img src="mapa.png" style="max-width: 689px;height:569px;display: block;" />
             <a id="player" style="top:0;left:0;"></a>
             <div class="grid"></div>
+            <div id="items"></div>
         </div>
         <a id="play" class="disabled"><img src="play.png" style="max-width: 100%;display: block;" /></a>
         <div id="message">
