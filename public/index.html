@@ -16,8 +16,15 @@
         }
 
         #blocklyDiv {
-            width: 50vw;
+            width: calc(100vw - 700px);
             height: 100vh;
+        }
+
+        #map {
+            position: relative;
+            width: 700px;
+            height: 100vh;
+            background-color: #b9c861;
         }
 
         /* #map {
@@ -29,7 +36,7 @@
             background-position: center;
             background-color: #b9c861;
             position: relative;
-        } */
+        } 
         .container-map {
             background-color: #b9c861;
             width: 50svw;
@@ -38,10 +45,8 @@
             justify-content: center;
         }
         .grid {
-            background-image: url("mapa.png");
-            background-size: 100% 100%;
             width: 100%;
-            height: 80%;
+            height: 100%;
             display: grid;
             grid-template-columns: repeat(25, 1fr);
             grid-template-rows: repeat(17, 1fr);
@@ -64,13 +69,13 @@
             0%,
             100% {
                 transform: translateY(0);
-                /* Posição inicial e final - sem deslocamento vertical */
-            }
+                /* Posição inicial e final - sem deslocamento vertical *
+        }
 
-            50% {
-                transform: translateY(-10px);
-                /* Meio da animação - deslocamento para cima */
-            }
+        50% {
+            transform: translateY(-10px);
+            /* Meio da animação - deslocamento para cima *
+        }
         }
 
         .grid-item.selected {
@@ -79,7 +84,7 @@
 
         .grid-item.selected::before {
             content: "";
-            /* Adiciona um pseudo-elemento para aplicar a rotação */
+            /* Adiciona um pseudo-elemento para aplicar a rotação *
             position: absolute;
             top: 0;
             left: 0;
@@ -88,14 +93,52 @@
             background-image: url("personagem.png");
             background-size: 100% 100%;
             transform: rotate(180deg);
-        }
+        }*/
 
+        
         #player {
-            width: 20px;
-            height: 20px;
+            width: 29px;
+            height: 29px;
             border-radius: 100%;
-            background-color: red;
+            background-size: 29px;
+            background-image: url("personagem.png");
             position: absolute;
+        }
+        #map .grid{
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            display: flex;
+            flex-direction: row;
+        }
+        #map .grid div>div{
+            width: 28px;
+            height: 28px;
+            border:0.5px solid transparent; 
+        }
+        #map .grid div>div.border{
+            border-color: #000;
+        }
+        #play{
+            position: absolute;
+            top:10px;
+            left:calc(100vw - 700px - 60px - 10px);
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+        }
+        #play.disabled{
+            filter: grayscale(1);
+            pointer-events: none;
+        }
+        #message{
+            position: absolute;
+            left:202px;
+            bottom: 0;
+            width: calc(100vw - 700px - 202px);
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -103,16 +146,22 @@
 <body>
     <div id="root">
         <div id="blocklyDiv"></div>
-        <div class="container-map">
-            <div id="map" class="grid">
-                <!-- <a id="player" style="top:160px;left:100px;"></a> -->
-            </div>
+        <div id="map">
+            <img src="mapa.png" style="max-width: 689px;height:569px;display: block;" />
+            <a id="player" style="top:0;left:0;"></a>
+            <div class="grid"></div>
         </div>
+        <a id="play" class="disabled"><img src="play.png" style="max-width: 100%;display: block;" /></a>
+        <div id="message">
 
+        </div>
     </div>
 </body>
 
 <script>
+    /*
+    <div class="container-map">
+    </div>
     document.addEventListener("DOMContentLoaded", function () {
         const grid = document.querySelector(".grid");
         const gridItems = document.querySelectorAll(".grid-item");
@@ -220,7 +269,7 @@
             }
         });
 
-    });
+    });*/
 </script>
 
 </html>

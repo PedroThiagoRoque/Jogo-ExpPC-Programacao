@@ -1,11 +1,30 @@
 import Blockly, { WorkspaceSvg } from 'blockly';
 import { ToolboxDefinition } from 'blockly/core/utils/toolbox';
 import CommandController from './Commands/CommandController';
+import Map from './Map';
+import Player from './Player';
+import Runtime from './Runtime';
 
 class App {
 
     private toolbox: ToolboxDefinition;
     private workspace: WorkspaceSvg;
+    private playElement : HTMLDivElement;
+
+    Start(){
+        this.playElement = document.querySelector("#play");
+        this.playElement.onclick = this.OnPlay.bind(this);
+        Map.Start();
+        Player.Start();
+    }
+
+    async OnPlay(){
+        this.playElement.classList.add("disabled");
+        const commands = this.GenerateCommand();
+        const runtime = new Runtime(commands);
+        await runtime.Run();
+        this.playElement.classList.remove("disabled");
+    }
 
     Import(blocks: any) {
         //defineBlocksWithJsonArray
@@ -38,18 +57,20 @@ class App {
 
     Run() {
         this.workspace = Blockly.inject('blocklyDiv', { toolbox: this.toolbox });
-        const temp = { "type": "block_start", "id": "z+gnknX@a:gq2!SCxj29", "x": 200, "y": 154, "movable": false, "editable": false, "inputs": { "command": { "block": { "type": "block_move", "id": "~{7N^2ZshLSyMTfobrK.", "fields": { "direction": "up" }, "next": { "block": { "type": "block_if", "id": "|hN9T@HA*7iv:(/K-/`R", "fields": { "NAME": "a" }, "inputs": { "true": { "block": { "type": "block_move", "id": "c^4MjiZa;2g5=`CcgO(P", "fields": { "direction": "up" }, "next": { "block": { "type": "block_move", "id": "jQ,*/l8](O5qK5vZBscc", "fields": { "direction": "up" } } } } } }, "next": { "block": { "type": "block_if_else", "id": "m1F8g8Pv(%:$U|rfF?@k", "fields": { "NAME": "a" }, "inputs": { "true": { "block": { "type": "block_move", "id": "_I;7U]=m]3BH8e6VZQ}o", "fields": { "direction": "up" } } }, "false": { "block": { "type": "block_move", "id": "m1iYni-%Hp|D%czKcWX3", "fields": { "direction": "up" } } } }, "next": { "block": { "type": "block_for", "id": "s1q-`JOMZ7n*nAf[gPer", "fields": { "iterator": 0 }, "inputs": { "command": { "block": { "type": "block_move", "id": ":?503l65WIBfhDo{XyV;", "fields": { "direction": "up" } } } } } } } } } } } } } };
+        const temp = { "type": "block_start", "id": "Q@]:+vc8mu`XtIUv^]n)", "x": 200, "y": 200, "movable": false, "editable": false, "inputs": { "command": { "block": { "type": "block_right", "id": "cCX:@%8lo#QEDBMNZ*RM", "next": { "block": { "type": "block_move", "id": "73T0qIE@{D(%38Pg1W,^", "next": { "block": { "type": "block_left", "id": "D#q,}-jzb~~-vRO7ar=$", "next": { "block": { "type": "block_left", "id": "m/CY2UTKl(-UM|JG2a:;", "next": { "block": { "type": "block_move", "id": "NnLw^cSq6q1KpCw-O~*V" } } } } } } } } } } } };
         Blockly.serialization.blocks.append(temp, this.workspace);
+
+        this.playElement.classList.remove("disabled");
         //   Blockly.serialization.blocks.append({ type: 'block_start', x: 200, y: 200 }, this.workspace);
     }
 
     GenerateCommand() {
         const json = Blockly.serialization.workspaces.save(this.workspace);
 
-        
+
         //     console.log(JSON.stringify(json.blocks.blocks))
         return CommandController.Import(json.blocks.blocks);
     }
-    
+
 }
 export default App;

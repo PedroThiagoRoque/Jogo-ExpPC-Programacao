@@ -16,7 +16,7 @@
                 "name": "command"
             }
         ],
-        "movable":false,
+        "movable": false,
         "previousStatement": null,
         "nextStatement": null,
         "colour": 135,
@@ -25,30 +25,37 @@
     },
     {
         "type": "block_move",
-        "message0": "%1",
-        "args0": [
-            {
-                "type": "field_dropdown",
-                "name": "direction",
-                "options": [
-                    [
-                        "Para Frente",
-                        "up"
-                    ],
-                    [
-                        "Para Esquerda",
-                        "left"
-                    ],
-                    [
-                        "Para Direita",
-                        "right"
-                    ]
-                ]
-            }
-        ],
+        "message0": "Move para Frente",
+        "colour": 300,
         "previousStatement": null,
         "nextStatement": null,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "block_left",
+        "message0": "Girar Para Esquerda",
         "colour": 300,
+        "previousStatement": null,
+        "nextStatement": null,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "block_right",
+        "message0": "Girar Para Direita",
+        "colour": 300,
+        "previousStatement": null,
+        "nextStatement": null,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "block_pickup",
+        "message0": "Pegar Item",
+        "colour": 300,
+        "previousStatement": null,
+        "nextStatement": null,
         "tooltip": "",
         "helpUrl": ""
     },

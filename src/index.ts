@@ -6,9 +6,10 @@ import Runtime from './Runtime';
 
 const app = new App;
 
+app.Start();
 app.Import(blocksData);
 
-app.ToolBox(["block_move", "block_if", "block_if_else", "block_for"]);
+app.ToolBox(["block_move","block_left","block_right","block_pickup", "block_if", "block_if_else", "block_for"]);
 
 app.Run();
 
@@ -36,7 +37,6 @@ var toolbox = {
 }
 
 var workspace = Blockly.inject('blocklyDiv', { toolbox });
-*/
 window.onkeydown = (e) => {
     if (e.key == "e") {
         const commands = app.GenerateCommand();
@@ -44,5 +44,6 @@ window.onkeydown = (e) => {
         runtime.Run();
     }
 }
+*/
 
 export default {};
