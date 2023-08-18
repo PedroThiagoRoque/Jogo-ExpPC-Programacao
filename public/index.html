@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jogo-ExpPC-Programacao</title>
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                border: 0;;
+            }
+            #root{
+                display: flex;
+            }
+            #blocklyDiv{
+                width: 50vw;
+                height: 100vh;
+            }
+            #map{
+                width: 50svw;
+                height: 100vh;
+                background-image: url("/mapa.jpg");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: #b9c861;
+                position: relative;
+            }
+            #player{
+                width: 20px;
+                height: 20px;
+                border-radius: 100%;
+                background-color: red;
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <div id="blocklyDiv"></div>
+            <div id="map">
+                <a id="player" style="top:160px;left:100px;"></a>
+            </div>
+        </div>
+    </body>
+</html>
