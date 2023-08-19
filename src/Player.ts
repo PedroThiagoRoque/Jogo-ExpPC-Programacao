@@ -37,6 +37,7 @@ class Player {
     }
 
     static Reset() {
+        // this.playerElement.style.backgroundImage = `url(personagem2.png)`;
         this.Rotation("up");
         this.SetPosition(9, 11);
     }

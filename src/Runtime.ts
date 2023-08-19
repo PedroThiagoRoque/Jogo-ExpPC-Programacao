@@ -36,7 +36,18 @@ class Runtime {
 
     async RunCommand(command: Command) {
         if (command instanceof CommandIF) {
-
+            const item = Map.GetItem(Player.position.x, Player.position.y);
+            if (item && item.name == command.nameItem) {
+                for (let cmd of command.commandsTrue) {
+                    await this.RunCommand(cmd);
+                    await Runtime.delay(800);
+                }
+            } else {
+                for (let cmd of command.commandsFalse) {
+                    await this.RunCommand(cmd);
+                    await Runtime.delay(800);
+                }
+            }
         } else if (command instanceof CommandFor) {
             for (let i = 0; i < command.iterator; i++) {
                 for (let cmd of command.getCommands()) {

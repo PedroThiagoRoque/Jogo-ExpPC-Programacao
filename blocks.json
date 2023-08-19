@@ -68,16 +68,16 @@
                 "name": "NAME",
                 "options": [
                     [
-                        "banana",
-                        "a"
+                        "Queijo",
+                        "Queijo"
                     ],
                     [
-                        "maça",
-                        "b"
+                        "Presunto",
+                        "Presunto"
                     ],
                     [
-                        "pera",
-                        "c"
+                        "Pao",
+                        "Pao"
                     ]
                 ]
             },

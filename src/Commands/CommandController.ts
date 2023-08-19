@@ -33,6 +33,21 @@ class CommandController {
         if (command instanceof CommandIF) {
             if (block.inputs.true) command.true = block.inputs.true.block;
             if (block.inputs.false) command.false = block.inputs.false.block;
+            command.nameItem = block.fields.NAME;
+
+            var cmdTrue = block.inputs.true
+            while(cmdTrue.block.next) {
+                command.addTrue(cmdTrue.block.type)
+                cmdTrue = cmdTrue.block.next
+            }
+            command.addTrue(cmdTrue.block.type)
+
+            var cmdFalse = block.inputs.false
+            while(cmdFalse.block.next) {
+                command.addFalse(cmdFalse.block.type)
+                cmdFalse = cmdFalse.block.next
+            }
+            command.addFalse(cmdFalse.block.type)
         }
         if (command instanceof CommandFor) {
             var cmd = block.inputs.command

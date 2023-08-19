@@ -1,4 +1,6 @@
 import CommandController from "./CommandController"
+// import CommandFor from './CommandFor';
+// import CommandIF from './CommandIF';
 
 export type CommandBlock = { block: BlockJSON }
 
@@ -30,6 +32,22 @@ class Command {
     }
 
     public add(name: string): Command {
+        // if (name == "block_for") {
+        //     const command = new CommandFor(name);
+        //     this._commands.push(command);
+        //     return command;
+        // }
+        // if (name == "block_if") {
+        //     const command = new CommandIF(name);
+        //     this._commands.push(command);
+        //     return command;
+        // }
+        // if (name == "block_if_else") {
+        //     const command = new CommandIF(name);
+        //     this._commands.push(command);
+        //     return command;
+        // }
+        
         const command = new Command(name);
         this._commands.push(command);
         return command;
