@@ -18,12 +18,13 @@ class Map {
             const items = [] as MapType[0];
             for (let j = 0; j < this.lines; j++) {
                 const gridItemItem = document.createElement("div");
-                gridItemItem.setAttribute("x", String(i));
-                gridItemItem.setAttribute("y", String(j));
+                gridItemItem.setAttribute("y", String(i));
+                gridItemItem.setAttribute("x", String(j));
                 if (i == 0 || i == 11 || i == 22 || j == 0 || j == 9 || j == 18) {
                     gridItemItem.classList.add("border");
                     items.push(null);
                     gridItemItem.setAttribute("solid", "false");
+                    gridItemItem.innerHTML = `<span>${i}x${j}</span>`;
                 } else {
                     gridItemItem.setAttribute("solid", "true");
                     items.push(true);
@@ -33,10 +34,11 @@ class Map {
             this.map.push(items);
             this.mapElement.querySelector(".grid").append(gridItem)
         }
-        this.CreateItem(9, 10);
     }
 
-    static CreateItem(x: number, y: number) {
+    static CreateItem(item: Item, x: number, y: number) {
+        this.SetMap(x, y, item);
+        /*
         const item = new Item("Queijo", "queijo.png");
         this.SetMap(x, y, item);
 
@@ -44,7 +46,7 @@ class Map {
         this.SetMap(x, y-4, item2);
 
         const item3 = new Item("Presunto", "presunto.png");
-        this.SetMap(x, y-8, item3);
+        this.SetMap(x, y-8, item3);*/
     }
 
     static GetItem(x: number, y: number): Item | false {
@@ -62,7 +64,7 @@ class Map {
     }
 
     static IsCollider(x: number, y: number): boolean {
-        if(x < 0 || y < 0 || x > this.lines-1 || y > this.columns-1) {
+        if (x < 0 || y < 0 || x > this.lines - 1 || y > this.columns - 1) {
             return true;
         }
         else if (x > 0 && x < this.columns && y > 0 && y < this.lines) {
@@ -80,16 +82,16 @@ class Map {
             const position = this.GetPosition(x, y);
             const img = document.createElement("img");
             img.classList.add("item");
-            img.style.top = position.x + "px";
-            img.style.left = position.y + "px";
+            img.style.top = position.y + "px";
+            img.style.left = position.x + "px";
             img.src = value.image;
             //value
             this.mapElement.querySelector("#items").append(img);
             value.element = img;
         }
-        const current = this.GetMap(x,y);
-        if(current instanceof Item) current.remove();
-        this.map[y][x] = value;
+        const current = this.GetMap(x, y);
+        if (current instanceof Item) current.remove();
+        this.map[x][y] = value;
         // this.mapElement.querySelector("#items").innerHTML = `<img style='position:absolute;top:${position.x}px;left:${position.y}px;width:30px;height:30px;' src='${item.image}' />`;
     }
 

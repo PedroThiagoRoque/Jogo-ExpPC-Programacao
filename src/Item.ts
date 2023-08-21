@@ -32,6 +32,18 @@ class Item {
     public get element() {
         return this._element;
     }
+
+    static Queijo(){
+        return new Item("Queijo", "queijo.png");
+    }
+
+    static Pao(){
+        return new Item("Pao", "pao.png");
+    }
+    
+    static Presunto(){
+        return new Item("Presunto", "presunto.png");
+    }
 }
 
 export default Item;

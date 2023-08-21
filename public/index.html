@@ -3,6 +3,7 @@
 
 <head>
     <title>Jogo-ExpPC-Programacao</title>
+    <script src='https://html2canvas.hertzen.com/dist/html2canvas.min.js'></script>
     <style>
         body {
             margin: 0;
@@ -21,77 +22,14 @@
         }
 
         #map {
-            position: relative;
             width: 700px;
             height: 100vh;
             background-color: #b9c861;
         }
 
-        /* #map {
-            width: 50svw;
-            height: 100vh;
-            background-image: url("/mapa.png");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: #b9c861;
-            position: relative;
-        } 
-        .container-map {
-            background-color: #b9c861;
-            width: 50svw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .grid {
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-columns: repeat(25, 1fr);
-            grid-template-rows: repeat(17, 1fr);
-        }
-
-        .grid-item {
-            border: 2px solid rgba(0, 0, 0, .8);
-            background-color: #959ca4;
-            margin: -1px;
-        }
-
-        .queijo {
-            background-image: url("queijo.png");
-            background-size: 100% 100%;
-            animation: jump .5s ease-in-out infinite;
-        }
-
-        @keyframes jump {
-
-            0%,
-            100% {
-                transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-10px);
-        }
-        }
-
-        .grid-item.selected {
+        .map-container {
             position: relative;
         }
-
-        .grid-item.selected::before {
-            content: "";
-            /* Adiciona um pseudo-elemento para aplicar a rotação *
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("personagem.png");
-            background-size: 100% 100%;
-            transform: rotate(180deg);
-        }*/
 
 
         #player {
@@ -124,7 +62,11 @@
             border-color: #000;
             background-color: #959ca4;
         }
-
+        #map .grid .border span{
+            position: absolute;
+            color:#444;
+            font-size: 9px;
+        }
         #map #items .item {
             position: absolute;
             width: 30px;
@@ -175,130 +117,25 @@
     <div id="root">
         <div id="blocklyDiv"></div>
         <div id="map">
-            <img src="mapa.png" style="max-width: 689px;height:569px;display: block;" />
-            <a id="player" style="top:0;left:0;"></a>
-            <div class="grid"></div>
-            <div id="items"></div>
+            <div class="map-container">
+                <img src="mapa.png" style="max-width: 689px;height:569px;display: block;" />
+                <a id="player" style="top:0;left:0;"></a>
+                <div class="grid"></div>
+                <div id="items"></div>
+            </div>
+            <button id="printscreen">PrintScreen</button>
         </div>
         <a id="play" class="disabled"><img src="play.png" style="max-width: 100%;display: block;" /></a>
         <div id="message">
 
         </div>
     </div>
+    <script>
+        document.querySelector("#printscreen").onclick = async function () {
+            const canvas = await html2canvas(document.querySelector("#map .map-container"))
+            document.body.appendChild(canvas)
+        }
+    </script>
 </body>
-
-<script>
-    /*
-    <div class="container-map">
-    </div>
-    document.addEventListener("DOMContentLoaded", function () {
-        const grid = document.querySelector(".grid");
-        const gridItems = document.querySelectorAll(".grid-item");
-
-        var matriz = new Array(17);
-        for (let i = 0; i < 17; i++) {
-            matriz[i] = new Array(25).fill(0);
-            if (i === 0 || i === 8 || i === 16) {
-                matriz[i] = matriz[i].map(() => 1);
-            } else {
-                matriz[i][0] = 1;
-                matriz[i][24] = 1;
-                matriz[i][12] = 1; // Adiciona 1s à coluna 12
-            }
-        }
-
-        for (let row = 0; row < 17; row++) {
-            for (let col = 0; col < 25; col++) {
-                const gridItem = document.createElement("div");
-                if (matriz[row][col] === 1) {
-                    gridItem.classList.add("grid-item");
-                }
-                grid.appendChild(gridItem);
-            }
-        }
-
-        // Adiciona a classe .selected ao grid-item na posição 0, 0
-        var selectedRowIndex = 0;
-        var selectedColIndex = 0;
-        var selectedGridItem = grid.children[selectedRowIndex * 25 + selectedColIndex];
-        selectedGridItem.classList.add("selected");
-
-
-        var queijo = grid.children[2 * 25 + 1];
-        queijo.classList.add("queijo");
-
-        //   // array de codigos
-        //   const algoritmo = [
-        //     'andar para frente',
-        //     'andar para frente',
-        //     'virar para a direita'
-        //   ]
-
-        //   function play() {
-        //     let i = 0;
-
-        //     function executeNextIteration() {
-        //       if (i < algoritmo.length && algoritmo[i] === 'andar para frente') {
-        //         selectedGridItem.classList.remove("selected");
-        //         selectedRowIndex = selectedRowIndex + 1;
-        //         selectedColIndex = selectedColIndex;
-        //         selectedGridItem = grid.children[selectedRowIndex * 25 + selectedColIndex];
-        //         selectedGridItem.classList.add("selected");
-
-        //         i++;
-
-        //         if (i < algoritmo.length) {
-        //           setTimeout(executeNextIteration, 500); // Define um atraso de 1000ms (1 segundo)
-        //         }
-        //       }
-        //       if (i < algoritmo.length && algoritmo[i] === 'virar para a direita') {
-        //         //transform: rotate(90deg);
-        //         selectedGridItem.style.transform = "rotate(90deg)";
-        //         i++;
-
-        //         if (i < algoritmo.length) {
-        //           setTimeout(executeNextIteration, 500); // Define um atraso de 1000ms (1 segundo)
-        //         }
-        //       }
-        //     }
-
-        //     executeNextIteration();
-        //   }
-
-        //   // Adicione um ouvinte de eventos de clique ao botão
-        //   const playButton = document.getElementById("playButton");
-        //   playButton.addEventListener("click", play); // Chama a função play() quando o botão for clicado
-
-
-        // Ouvinte de eventos de teclado para navegar pela grade
-        document.addEventListener("keydown", function (event) {
-            const key = event.key;
-            let newRow = selectedRowIndex;
-            let newCol = selectedColIndex;
-
-            // Calcula a próxima posição com base na tecla pressionada
-            if (key === "ArrowUp") {
-                newRow = selectedRowIndex - 1;
-            } else if (key === "ArrowDown") {
-                newRow = selectedRowIndex + 1;
-            } else if (key === "ArrowLeft") {
-                newCol = selectedColIndex - 1;
-            } else if (key === "ArrowRight") {
-                newCol = selectedColIndex + 1;
-            }
-
-            // Verifica se a próxima posição é válida na matriz (contém 1)
-            if (newRow >= 0 && newRow < matriz.length && newCol >= 0 && newCol < matriz[0].length && matriz[newRow][newCol] === 1) {
-                // Atualiza a seleção
-                selectedGridItem.classList.remove("selected");
-                selectedRowIndex = newRow;
-                selectedColIndex = newCol;
-                selectedGridItem = grid.children[selectedRowIndex * 25 + selectedColIndex];
-                selectedGridItem.classList.add("selected");
-            }
-        });
-
-    });*/
-</script>
 
 </html>
