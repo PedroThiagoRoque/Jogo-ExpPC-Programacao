@@ -20,26 +20,44 @@ class Player {
 
     private static playerElement: HTMLDivElement;
     private static transform: Transform;
-    private static inventory: Array<Item> = [];
+    private static inventory?: Item;
+    private static _initialPosition = { x: 0, y: 0 };
 
     static Start() {
         this.playerElement = document.querySelector("#player");
         this.transform = {
-            position: { x: 0, y: 0 },
+            position: this._initialPosition,
             rotation: "up"
         }
-        this.Reset();
+        Player.ChangeSkin("normal");
     }
 
-    static AddItem(item: Item){
-        this.inventory.push(item);
-        this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
+    static AddItem(item: Item) {
+        this.inventory = item;
+        Player.ChangeSkin(item.name);
+        //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
+    }
+
+    static RemoveItem() {
+        const item = this.inventory;
+        this.inventory = null;
+        Player.ChangeSkin("normal");
+        return item;
+        //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
+    }
+
+    static ChangeSkin(name: string) {
+        this.playerElement.style.backgroundImage = `url(/player/${name}.png)`;
     }
 
     static Reset() {
         // this.playerElement.style.backgroundImage = `url(personagem2.png)`;
         this.Rotation("up");
-        this.SetPosition(9, 11);
+        this.SetPosition(this._initialPosition.y, this._initialPosition.x   );
+    }
+
+    static Run(){
+        this.Reset();
     }
 
     static Move() {
@@ -58,7 +76,7 @@ class Player {
                 y += 1;
                 break;
         }
-        if(!Map.IsCollider(x,y))
+        if (!Map.IsCollider(x, y))
             this.SetPosition(x, y);
     }
 
@@ -91,10 +109,10 @@ class Player {
     }
 
     static SetPosition(x: number, y: number) {
-        if(Map.IsCollider(x,y) == false){
+        if (Map.IsCollider(x, y) == false) {
             this.transform.position = { x, y }
             this.UpdatePosition();
-        }else{
+        } else {
             console.log("Oi");
             document.querySelector("#message").innerHTML = "Não é possível caminhar";
         }
@@ -107,6 +125,11 @@ class Player {
         this.playerElement.style.left = y + "px";
     }
 
+    public static SetInitialPosition(x: number, y: number) {
+        this._initialPosition = { x, y };
+        this.SetPosition(this._initialPosition.y, this._initialPosition.x);
+    }
+
     public static get position() {
         return this.transform.position;
     }
@@ -116,6 +139,10 @@ class Player {
     }
     public static get rotation() {
         return this.transform.rotation;
+    }
+
+    public static get initialPosition() {
+        return this._initialPosition;
     }
 }
 
