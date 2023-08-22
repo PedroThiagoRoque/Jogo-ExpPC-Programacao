@@ -1,6 +1,7 @@
 import App from "../App";
 import Item from "../Item";
 import Map from '../Map';
+import Player from "../Player";
 class Level {
 
     protected playElement: HTMLDivElement;
@@ -24,6 +25,8 @@ class Level {
         Map.CreateItem(Item.Presunto(), 11, 5);
         Map.CreateItem(Item.Queijo(), 7, 0);
         Map.CreateItem(Item.Pao(), 0, 3);
+        Player.SetInitialPosition(5, 9);
+        Map.SetHome(5, 9);
     }
 
     async Run() {

@@ -37,9 +37,19 @@
             height: 29px;
             border-radius: 100%;
             background-size: 29px;
-            background-image: url("personagem2.png");
+            background-image: url("/player/normal.png");
             position: absolute;
             z-index: 99;
+        }
+
+        #home {
+            width: 29px;
+            height: 29px;
+            border-radius: 100%;
+            background-size: 29px;
+            background-image: url("casa.png");
+            position: absolute;
+            z-index: 90;
         }
 
         #map .grid {
@@ -120,6 +130,7 @@
             <div class="map-container">
                 <img src="mapa.png" style="max-width: 689px;height:569px;display: block;" />
                 <a id="player" style="top:0;left:0;"></a>
+                <a id="home" style="top:0;left:0;"></a>
                 <div class="grid"></div>
                 <div id="items"></div>
             </div>

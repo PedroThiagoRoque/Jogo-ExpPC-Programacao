@@ -5,7 +5,9 @@ import CommandIF from './CommandIF';
 class CommandController {
     static Import(blocks: BlockJSON[]) {
         const command = new Command("block_start");
-        command.next = CommandController.loadBlock(blocks[0].inputs.command.block);
+        if(blocks[0]?.inputs){
+            command.next = CommandController.loadBlock(blocks[0].inputs.command.block);
+        }
         return command;
     }
 
