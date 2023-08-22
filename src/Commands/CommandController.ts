@@ -45,11 +45,14 @@ class CommandController {
             command.addTrue(cmdTrue.block.type)
 
             var cmdFalse = block.inputs.false
-            while(cmdFalse.block.next) {
+            if (cmdFalse != null){
+                while(cmdFalse.block.next) {
+                    command.addFalse(cmdFalse.block.type)
+                    cmdFalse = cmdFalse.block.next
+                }
                 command.addFalse(cmdFalse.block.type)
-                cmdFalse = cmdFalse.block.next
             }
-            command.addFalse(cmdFalse.block.type)
+            
         }
         if (command instanceof CommandFor) {
             var cmd = block.inputs.command
