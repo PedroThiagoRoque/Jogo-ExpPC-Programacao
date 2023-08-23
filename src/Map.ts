@@ -102,7 +102,7 @@ class Map {
             img.classList.add("item");
             img.style.top = position.y + "px";
             img.style.left = position.x + "px";
-            img.src = "/items/" + value.image;
+            img.src = "/static/items/" + value.image;
             //value
             this.mapElement.querySelector("#items").append(img);
             value.element = img;

@@ -1,14 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // https://www.educative.io/answers/how-to-create-a-react-application-with-webpack
 
 const root = process.cwd();
 
-module.exports = function (mode) {
-    const isEnvProduction = mode == "production";
-    const isEnvDevelopment = mode == "development";
-
+module.exports = function (config,env) {
+    const isEnvProduction = env.mode == "production";
+    const isEnvDevelopment = env.mode == "development";
     return {
         entry: path.resolve(root, 'src', 'index.ts'),
         output: {
@@ -17,7 +17,7 @@ module.exports = function (mode) {
             filename: '[name].[contenthash:8].js',
             chunkFilename: '[name].[contenthash:8].chunk.js',
         },
-
+        mode: env.mode,
         devServer: {
             static: {
                 directory: path.join(root, 'public'),
@@ -54,17 +54,22 @@ module.exports = function (mode) {
         // externals: [nodeExternals()],
         optimization: {
             splitChunks: {
-                chunks: 'all',
-            },
-            minimize: mode == "production",
-            minimizer: []
+                chunks: 'all'
+            }
         },
         /*
         resolve: {
             modules: "node_modules",
             extensions: [".jsx", ".ts", ".js"]
         },*/
+        context: path.join(root, 'public'),
         plugins: [
+            ...(
+                isEnvProduction ? ([new CopyWebpackPlugin({
+                    patterns: [
+                        { from: 'static',to:'static' }
+                    ]
+                })]) : []),
             //new BundleAnalyzerPlugin(),
             new HtmlWebpackPlugin({
                 template: path.resolve(root, 'public', 'index.html'),

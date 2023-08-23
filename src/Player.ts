@@ -47,7 +47,7 @@ class Player {
     }
 
     static ChangeSkin(image: string) {
-        this.playerElement.style.backgroundImage = `url(/player/${image})`;
+        this.playerElement.style.backgroundImage = `url(/static/player/${image})`;
     }
 
     static Reset() {

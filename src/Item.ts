@@ -60,6 +60,10 @@ class Item {
     static Hidden(){
         return new Item("Oculto", "question.png");
     }
+    
+    static Chocolate(){
+        return new Item("Chocolate", "chocolate.png");
+    }
 }
 
 export default Item;
