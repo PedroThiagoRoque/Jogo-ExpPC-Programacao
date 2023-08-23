@@ -56,6 +56,10 @@ class Item {
     static Farinha(){
         return new Item("Farinha", "farinha.png");
     }
+
+    static Chocolate(){
+        return new Item("Chocolate", "chocolate.png");
+    }
 }
 
 export default Item;
