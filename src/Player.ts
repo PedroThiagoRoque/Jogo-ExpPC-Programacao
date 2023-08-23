@@ -29,30 +29,31 @@ class Player {
             position: this._initialPosition,
             rotation: "up"
         }
-        Player.ChangeSkin("normal");
+        Player.ChangeSkin("normal.png");
     }
 
     static AddItem(item: Item) {
         this.inventory = item;
-        Player.ChangeSkin(item.name);
+        Player.ChangeSkin(item.image);
         //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
     }
 
     static RemoveItem() {
         const item = this.inventory;
         this.inventory = null;
-        Player.ChangeSkin("normal");
+        Player.ChangeSkin("normal.png");
         return item;
         //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
     }
 
-    static ChangeSkin(name: string) {
-        this.playerElement.style.backgroundImage = `url(/player/${name}.png)`;
+    static ChangeSkin(image: string) {
+        this.playerElement.style.backgroundImage = `url(/player/${image})`;
     }
 
     static Reset() {
         // this.playerElement.style.backgroundImage = `url(personagem2.png)`;
         this.Rotation("up");
+        Player.ChangeSkin("normal.png");
         this.SetPosition(this._initialPosition.y, this._initialPosition.x   );
     }
 

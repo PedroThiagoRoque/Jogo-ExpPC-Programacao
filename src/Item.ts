@@ -44,6 +44,18 @@ class Item {
     static Presunto(){
         return new Item("Presunto", "presunto.png");
     }
+
+    static Ovo(){
+        return new Item("Ovo", "ovo.png");
+    }
+
+    static Leite(){
+        return new Item("Leite", "leite.png");
+    }
+
+    static Farinha(){
+        return new Item("Farinha", "farinha.png");
+    }
 }
 
 export default Item;
