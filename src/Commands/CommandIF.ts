@@ -2,32 +2,20 @@ import Command, { BlockJSON } from "./Command";
 
 class CommandIF extends Command {
 
-    private _true: BlockJSON;
-    private _false: BlockJSON;
-    private _nameItem: string
-    private _commandsTrue: Command[] = [];
-    private _commandsFalse: Command[] = [];
+    private _true: Command;
+    private _false: Command;
+    private _value: string
 
-    public addTrue(name: string): Command {
-        const command = new Command(name);
-        this._commandsTrue.push(command);
-        return command;
-    }
-    public addFalse(name: string): Command {
-        const command = new Command(name);
-        this._commandsFalse.push(command);
-        return command;
-    }
-    set true(block: BlockJSON) {
+    set true(block: Command) {
         this._true = block;
     }
 
-    set false(block: BlockJSON) {
+    set false(block: Command) {
         this._false = block;
     }
 
-    set nameItem(_nameItem: string) {
-        this._nameItem = _nameItem;
+    set value(value: string) {
+        this._value = value;
     }
 
     get true() {
@@ -36,14 +24,8 @@ class CommandIF extends Command {
     get false() {
         return this._false;
     }
-    get nameItem() {
-        return this._nameItem;
-    }
-    get commandsTrue() {
-        return this._commandsTrue;
-    }
-    get commandsFalse() {
-        return this._commandsFalse;
+    get value() {
+        return this._value;
     }
 }
 

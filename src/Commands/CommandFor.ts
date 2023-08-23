@@ -3,9 +3,9 @@ import Command, { BlockJSON } from "./Command";
 class CommandFor extends Command {
 
     private _iterator: number;
-    private _command: BlockJSON;
+    private _command: Command;
 
-    public set command(value: BlockJSON){
+    public set command(value: Command){
         this._command = value;
     }
 

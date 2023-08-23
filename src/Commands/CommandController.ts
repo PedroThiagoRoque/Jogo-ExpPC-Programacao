@@ -23,45 +23,16 @@ class CommandController {
         if (block.next) {
             command.next = CommandController.loadBlock(block.next.block);
         }
-        if (block.inputs) {
-            /*
-            if (block.inputs.command) command.loadBlock(block.inputs.command.block)
-            if (block.inputs.true) command.loadBlock(block.inputs.true.block)
-            if (block.inputs.false) command.loadBlock(block.inputs.false.block)
-            // command.add();
-            */
-            //     console.log(block.inputs)
+        if (command instanceof CommandFor) { 
+            if (block.inputs?.command) command.command = CommandController.loadBlock(block.inputs.command.block)
+            command.iterator = block.fields.iterator;
+
         }
         if (command instanceof CommandIF) {
-            if (block.inputs.true) command.true = block.inputs.true.block;
-            if (block.inputs.false) command.false = block.inputs.false.block;
-            command.nameItem = block.fields.NAME;
-
-            var cmdTrue = block.inputs.true
-            while(cmdTrue.block.next) {
-                command.addTrue(cmdTrue.block.type)
-                cmdTrue = cmdTrue.block.next
-            }
-            command.addTrue(cmdTrue.block.type)
-
-            var cmdFalse = block.inputs.false
-            if (cmdFalse != null){
-                while(cmdFalse.block.next) {
-                    command.addFalse(cmdFalse.block.type)
-                    cmdFalse = cmdFalse.block.next
-                }
-                command.addFalse(cmdFalse.block.type)
-            }
+            if (block.inputs?.true) command.true = CommandController.loadBlock(block.inputs.true.block);
+            if (block.inputs?.false) command.false = CommandController.loadBlock(block.inputs.false.block);
+            command.value = block.fields.NAME;
             
-        }
-        if (command instanceof CommandFor) {
-            var cmd = block.inputs.command
-            while(cmd.block.next) {
-                command.add(cmd.block.type)
-                cmd = cmd.block.next
-            }
-            command.add(cmd.block.type)
-            command.iterator = block.fields.iterator;
         }
         return command;
     }

@@ -19,10 +19,8 @@ class Runtime {
     async Run() {
         Player.Reset();
         let command = this.command.next;
-
         while (command != null) {
             await this.RunCommand(command);
-            await Runtime.delay(800);
             command = command.next;
         }
         /*
@@ -37,22 +35,25 @@ class Runtime {
     async RunCommand(command: Command) {
         if (command instanceof CommandIF) {
             const item = Map.GetItem(Player.position.x, Player.position.y);
-            if (item && item.name == command.nameItem) {
-                for (let cmd of command.commandsTrue) {
-                    await this.RunCommand(cmd);
-                    await Runtime.delay(800);
+            if (item && item.name == command.value) {
+                let commandTrue: Command = command.true;
+                while (commandTrue != null) {
+                    await this.RunCommand(commandTrue);
+                    commandTrue = commandTrue.next;
                 }
             } else {
-                for (let cmd of command.commandsFalse) {
-                    await this.RunCommand(cmd);
-                    await Runtime.delay(800);
+                let commandFalse: Command = command.false;
+                while (commandFalse != null) {
+                    await this.RunCommand(commandFalse);
+                    commandFalse = commandFalse.next;
                 }
             }
         } else if (command instanceof CommandFor) {
             for (let i = 0; i < command.iterator; i++) {
-                for (let cmd of command.getCommands()) {
-                    await this.RunCommand(cmd);
-                    await Runtime.delay(800);
+                let commandFor: Command = command.command;
+                while (commandFor != null) {
+                    await this.RunCommand(commandFor);
+                    commandFor = commandFor.next;
                 }
             }
         } else {
@@ -74,6 +75,7 @@ class Runtime {
                     break;
             }
         }
+        await Runtime.delay(800);
     }
 
 }
