@@ -5,6 +5,11 @@ import Map from './Map';
 import Player from './Player';
 import Runtime from './Runtime';
 import Level from './Level';
+import Level1 from './Level/Level1';
+import Level2 from './Level/Level2';
+import Level3 from './Level/Level3';
+
+type LevelType = typeof Level;
 
 class App {
 
@@ -12,16 +17,46 @@ class App {
     private workspace: WorkspaceSvg;
     private level: Level;
 
-    constructor(level: Level) {
-        this.level = level;
-        level.app = this;
+    constructor() {
+        this.toolbox = {
+            kind: "flyoutToolbox",
+            contents: []
+        }
+    }
+
+    SetLevel(level: LevelType) {
+        const instance = new level;
+        this.level = instance;
+        instance.app = this;
+        this.Start_Level();
     }
 
     Start() {
         Map.Start();
-        Player.Start();
-        this.level.Start();
         this.workspace = Blockly.inject('blocklyDiv', { toolbox: this.toolbox });
+        this.workspace.addChangeListener(Blockly.Events.disableOrphans);
+        const fasesDiv = document.querySelector(".modal #fases") as HTMLDivElement;
+        fasesDiv.append(this.CreateButton(Level1));
+        fasesDiv.append(this.CreateButton(Level2));
+        fasesDiv.append(this.CreateButton(Level3));
+    }
+
+    CreateButton(Level: LevelType) {
+        const button = document.createElement("button");
+        button.innerHTML = Level.id;
+        button.onclick = () => {
+            this.SetLevel(Level);
+            document.querySelector(".modal").classList.add("hide");
+        }
+        return button;
+    }
+
+    Start_Level() {
+        Player.Start();
+        this.level.Init ();
+        this.workspace.updateToolbox(this.toolbox)
+        console.log(this.workspace)
+        // this.workspace = Blockly.inject('blocklyDiv', { toolbox: this.toolbox });
         //   const temp = { "type": "block_start", "id": "Q@]:+vc8mu`XtIUv^]n)", "x": 200, "y": 200, "movable": false, "editable": false, "inputs": { "command": { "block": { "type": "block_right", "id": "cCX:@%8lo#QEDBMNZ*RM", "next": { "block": { "type": "block_move", "id": "73T0qIE@{D(%38Pg1W,^", "next": { "block": { "type": "block_left", "id": "D#q,}-jzb~~-vRO7ar=$", "next": { "block": { "type": "block_left", "id": "m/CY2UTKl(-UM|JG2a:;", "next": { "block": { "type": "block_move", "id": "NnLw^cSq6q1KpCw-O~*V" } } } } } } } } } } } };
         //    Blockly.serialization.blocks.append(temp, this.workspace);
 

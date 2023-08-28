@@ -72,11 +72,13 @@
             border-color: #000;
             background-color: #959ca4;
         }
-        #map .grid .border span{
+
+        #map .grid .border span {
             position: absolute;
-            color:#444;
+            color: #444;
             font-size: 9px;
         }
+
         #map #items .item {
             position: absolute;
             width: 30px;
@@ -124,7 +126,55 @@
 </head>
 
 <body>
+    <style>
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.hide{
+            display: none;
+        }
+        .modal .modal-content {
+            background-color: #f1f1f1;
+            border: 1px solid #dedede;
+            box-shadow: 0 0 3px 4px rgba(200, 200, 200, 0.4);
+            width: 400px;
+            padding: 1em;
+        }
+
+        .modal h2 {
+            margin: 0;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .modal button{
+            display: block;
+            width: 100%;
+            border: 0;
+            background-color: #2196f3;
+            color:#f1f1f1;
+            padding:0.6em 0.8em;
+            margin-bottom: 0.5em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal button:hover{
+            background-color: #42a2f0;
+        }
+    </style>
     <div id="root">
+        <div class="modal">
+            <div class="modal-content">
+                <h2>Programação para 8º Ano</h2>
+                <div id="fases">
+                </div>
+            </div>
+        </div>
         <div id="blocklyDiv"></div>
         <div id="map">
             <div class="map-container">

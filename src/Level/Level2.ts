@@ -6,6 +6,8 @@ import Map from '../Map';
 // Comandos de Repetição
 class Level2 extends Level{
 
+    public static id = "Fase 2";
+
     Start() {
         this.app.ToolBox(["block_move", "block_left", "block_right", "block_pickup", "block_for"]);
         Map.CreateItem(Item.Pao(), 7, 9);

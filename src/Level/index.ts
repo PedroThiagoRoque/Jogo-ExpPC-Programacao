@@ -4,6 +4,7 @@ import Map from '../Map';
 import Player from "../Player";
 class Level {
 
+    public static id = "?";
     protected playElement: HTMLDivElement;
     private _app: App;
 
@@ -19,19 +20,26 @@ class Level {
         this.playElement.classList.remove("disabled");
     }
 
-    Start() {
+    Init() {
+        /*
         this.app.ToolBox(["block_move", "block_left", "block_right", "block_pickup", "block_if", "block_if_else", "block_for"]);
         Map.CreateItem(Item.Ovo(), 0, 14);
         Map.CreateItem(Item.Ovo(), 11, 6);
         Map.CreateItem(Item.Farinha(), 11, 18);
         Map.CreateItem(Item.Leite(), 22, 3);
         Player.SetInitialPosition(5, 9);
-        Map.SetHome(5, 9);
+        Map.SetHome(5, 9);*/
+    }
+
+    Start(){
+        
     }
 
     async Run() {
+        this.Start();
         await this.app.Run();
-        alert("Fim");
+        this.Finish();
+        this.Init();
     }
 
     Finish() {
