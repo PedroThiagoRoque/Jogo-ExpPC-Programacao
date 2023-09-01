@@ -1,5 +1,5 @@
 import Item from "./Item";
-import Map from "./Map";
+import MapController from "./MapController";
 
 type Transform = {
     position: Vector2,
@@ -23,7 +23,7 @@ class Player {
     private static inventory?: Item;
     private static _initialPosition = { x: 0, y: 0 };
 
-    static Start() {
+    static Awake() {
         this.playerElement = document.querySelector("#player");
         this.transform = {
             position: this._initialPosition,
@@ -54,7 +54,7 @@ class Player {
         // this.playerElement.style.backgroundImage = `url(personagem2.png)`;
         this.Rotation("up");
         Player.ChangeSkin("normal.png");
-        this.SetPosition(this._initialPosition.y, this._initialPosition.x   );
+        this.SetPosition(this._initialPosition.x, this._initialPosition.y );
     }
 
     static Run(){
@@ -77,7 +77,7 @@ class Player {
                 y += 1;
                 break;
         }
-        if (!Map.IsCollider(x, y))
+        if (!MapController.IsCollider(x, y))
             this.SetPosition(x, y);
     }
 
@@ -110,7 +110,7 @@ class Player {
     }
 
     static SetPosition(x: number, y: number) {
-        if (Map.IsCollider(x, y) == false) {
+        if (MapController.IsCollider(x, y) == false) {
             this.transform.position = { x, y }
             this.UpdatePosition();
         } else {
@@ -128,7 +128,7 @@ class Player {
 
     public static SetInitialPosition(x: number, y: number) {
         this._initialPosition = { x, y };
-        this.SetPosition(this._initialPosition.y, this._initialPosition.x);
+        this.SetPosition(this._initialPosition.x, this._initialPosition.y);
     }
 
     public static get position() {
@@ -136,7 +136,7 @@ class Player {
     }
     public static get worldPosition() {
         const { x, y } = this.transform.position;
-        return Map.GetPosition(x, y);
+        return MapController.GetPosition(x, y);
     }
     public static get rotation() {
         return this.transform.rotation;

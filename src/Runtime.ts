@@ -1,7 +1,7 @@
 import Command from "./Commands/Command";
 import CommandFor from "./Commands/CommandFor";
 import CommandIF from "./Commands/CommandIF";
-import Map from "./Map";
+import Map from "./MapController";
 import Player from "./Player";
 
 class Runtime {

@@ -1,6 +1,6 @@
 import App from "../App";
 import Item from "../Item";
-import Map from '../Map';
+import MapController from '../MapController';
 import Player from "../Player";
 class Level {
 
@@ -20,30 +20,32 @@ class Level {
         this.playElement.classList.remove("disabled");
     }
 
-    Init() {
-        /*
-        this.app.ToolBox(["block_move", "block_left", "block_right", "block_pickup", "block_if", "block_if_else", "block_for"]);
-        Map.CreateItem(Item.Ovo(), 0, 14);
-        Map.CreateItem(Item.Ovo(), 11, 6);
-        Map.CreateItem(Item.Farinha(), 11, 18);
-        Map.CreateItem(Item.Leite(), 22, 3);
-        Player.SetInitialPosition(5, 9);
-        Map.SetHome(5, 9);*/
+    Awake() {
+
     }
 
-    Start(){
-        
+    Init() {
+
+    }
+
+    Start() {
+
     }
 
     async Run() {
         this.Start();
         await this.app.Run();
         this.Finish();
-        this.Init();
+        // this.Init();
+        this.app.Finish();
     }
 
     Finish() {
+    }
 
+    Reset(){
+        MapController.ClearItens();
+        this.Init();
     }
 
     get app() {

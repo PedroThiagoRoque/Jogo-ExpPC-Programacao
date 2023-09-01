@@ -1,15 +1,21 @@
 import Item from "./Item";
 
+const Dic = window.Map;
+type Vector2 = {
+    x: number,
+    y: number;
+}
 type MapType = Array<Array<Item | true | null>>
-class Map {
+class MapController {
 
     private static mapElement: HTMLDivElement;
     private static homeElement: HTMLDivElement;
     private static positionHome = { x: 0, y: 0 };
-    private static columns = 23;
-    private static lines = 19;
+    private static columns = 19;
+    private static lines = 23;
     private static size = 30;
     private static map: MapType = [];
+    private static listItens: Map<Vector2, Item> = new Map<Vector2, Item>();
 
     static Start() {
         this.mapElement = document.querySelector("#map");
@@ -21,9 +27,9 @@ class Map {
             const items = [] as MapType[0];
             for (let j = 0; j < this.lines; j++) {
                 const gridItemItem = document.createElement("div");
-                gridItemItem.setAttribute("y", String(i));
-                gridItemItem.setAttribute("x", String(j));
-                if (i == 0 || i == 11 || i == 22 || j == 0 || j == 9 || j == 18) {
+                gridItemItem.setAttribute("x", String(i));
+                gridItemItem.setAttribute("y", String(j));
+                if (j == 0 || j == 11 || j == 22 || i == 0 || i == 9 || i == 18) {
                     gridItemItem.classList.add("border");
                     items.push(null);
                     gridItemItem.setAttribute("solid", "false");
@@ -41,6 +47,7 @@ class Map {
 
     static CreateItem(item: Item, x: number, y: number) {
         this.SetMap(x, y, item);
+        this.listItens.set({ x, y, }, item);
         /*
         const item = new Item("Queijo", "queijo.png");
         this.SetMap(x, y, item);
@@ -61,9 +68,16 @@ class Map {
         const item = this.GetItem(x, y);
         if (item instanceof Item) {
             this.SetMap(x, y, true);
+            this.listItens.delete({ x, y })
             return item;
         }
         return false;
+    }
+
+    static ClearItens() {
+        for (const item of this.listItens.keys()) {
+            this.RemoveItem(item.x, item.y)
+        }
     }
 
     static IsCollider(x: number, y: number): boolean {
@@ -71,19 +85,18 @@ class Map {
             return true;
         }
         else if (x > 0 && x < this.columns && y > 0 && y < this.lines) {
-            return this.GetMap(x, y) === true;
         }
         return false;
     }
 
     static SetHome(x: number, y: number) {
         const position = this.GetPosition(x, y);
-        this.homeElement.style.top = position.y + "px";
-        this.homeElement.style.left = position.x + "px";
+        this.homeElement.style.top = position.x + "px";
+        this.homeElement.style.left = position.y + "px";
         this.positionHome = { x, y };
     }
 
-    static GetHome(){
+    static GetHome() {
         return this.positionHome;
     }
 
@@ -92,7 +105,7 @@ class Map {
     }
 
     static GetMap(x: number, y: number) {
-        return this.map[y][x];
+        return this.map[x][y];
     }
 
     static SetMap(x: number, y: number, value: Item | true) {
@@ -100,8 +113,8 @@ class Map {
             const position = this.GetPosition(x, y);
             const img = document.createElement("img");
             img.classList.add("item");
-            img.style.top = position.y + "px";
-            img.style.left = position.x + "px";
+            img.style.top = position.x + "px";
+            img.style.left = position.y + "px";
             img.src = "/static/items/" + value.image;
             //value
             this.mapElement.querySelector("#items").append(img);
@@ -119,4 +132,4 @@ class Map {
         }
     }
 }
-export default Map;
+export default MapController;
