@@ -59,7 +59,11 @@
             right: 0;
             bottom: 0;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+        }
+
+        #map .grid>div{
+            display: flex;
         }
 
         #map .grid div>div {
@@ -140,6 +144,7 @@
             display: none;
         }
         .modal .modal-content {
+            display: none;
             background-color: #f1f1f1;
             border: 1px solid #dedede;
             box-shadow: 0 0 3px 4px rgba(200, 200, 200, 0.4);
@@ -166,13 +171,26 @@
         .modal button:hover{
             background-color: #42a2f0;
         }
+        .modal .modal-content.active{
+            display: block;
+        }
     </style>
     <div id="root">
         <div class="modal">
-            <div class="modal-content">
+            <div id="welcome" class="modal-content active">
                 <h2>Programação para 8º Ano</h2>
                 <div id="fases">
                 </div>
+            </div>
+            <div id="finish" class="modal-content">
+                <h2>Você Acertou/Errou</h2>
+                <p>OS Itens pegos</p>
+                <ul>
+                    <li>Pão</li>
+                    <li>Queijo</li>
+                </ul>
+                <button id="reset">Recomeçar</button>
+                <button id="menu">Menu de Fases</button>
             </div>
         </div>
         <div id="blocklyDiv"></div>
