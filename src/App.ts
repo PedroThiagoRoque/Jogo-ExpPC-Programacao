@@ -77,7 +77,7 @@ class App {
     async Run() {
         const commands = this.GenerateCommand();
         const runtime = new Runtime(commands);
-        await runtime.Run();
+        await runtime.Run(this.workspace);
     }
 
     Finish() {
@@ -97,7 +97,7 @@ class App {
                     .setCheck(null);
                 this.setColour(180);
                 this.setEditable(false);
-                this.setMovable(false);
+                this.setMovable(true);
                 this.moveBy(0, 0)
 
             }

@@ -5,6 +5,7 @@ import CommandController from "./CommandController"
 export type CommandBlock = { block: BlockJSON }
 
 export type BlockJSON = {
+    id: string
     type: string
     inputs: {
         command: CommandBlock,
@@ -17,12 +18,14 @@ export type BlockJSON = {
 
 class Command {
 
-    private _name;
+    private _id: string;
+    private _name: string;
     private _commands: Command[] = [];
     private _options: any = {};
     private _next: Command;
 
-    constructor(name: string) {
+    constructor(id: string, name: string) {
+        this._id = id;
         this._name = name;
         //if (block) this.next = CommandController.loadBlock(block);
     }
@@ -31,7 +34,7 @@ class Command {
         return this._commands;
     }
 
-    public add(name: string): Command {
+    public add(id: string, name: string): Command {
         // if (name == "block_for") {
         //     const command = new CommandFor(name);
         //     this._commands.push(command);
@@ -47,8 +50,8 @@ class Command {
         //     this._commands.push(command);
         //     return command;
         // }
-        
-        const command = new Command(name);
+
+        const command = new Command(id, name);
         this._commands.push(command);
         return command;
     }
@@ -69,6 +72,10 @@ class Command {
 
     public get next() {
         return this._next;
+    }
+
+    public get id() {
+        return this._id;
     }
 }
 export default Command;
