@@ -13,10 +13,10 @@ class Level3 extends Level{
     }
 
     Init() {
-        MapController.CreateItem(Item.Pao(), 7, 9);
-        MapController.CreateItem(Item.Presunto(), 11, 5);
-        MapController.CreateItem(Item.Queijo(), 7, 0);
-        MapController.CreateItem(Item.Pao(), 0, 3);
+        MapController.CreateItem(Item.Hidden(), 9, 7);
+        MapController.CreateItem(Item.Hidden(), 13, 22);
+        //MapController.CreateItem(Item.Hidden(), 7, 0);
+        //MapController.CreateItem(Item.Hidden(), 0, 3);
     }
 }
 
