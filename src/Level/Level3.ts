@@ -10,7 +10,7 @@ class Level3 extends Level{
     public static id = "Fase 3";
 
     Awake(): void {
-        this.app.ToolBox(["block_move", "block_left", "block_right", "block_pickup", "block_for", "block_if", "block_if_else"]);
+        this.app.ToolBox(["block_move", "block_left", "block_right", "block_pickup", "block_for", "block_if_else"]);
     }
 
     Init() {
