@@ -81,8 +81,8 @@ class Runtime {
                     }
                     break;
             }
+            await Runtime.delay(800);
         }
-        await Runtime.delay(800);
         block.unselect();
     }
 

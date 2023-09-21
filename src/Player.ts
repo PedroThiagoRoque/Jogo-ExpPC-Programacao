@@ -1,4 +1,4 @@
-import Item from "./Item";
+import Item, { ItemHidden } from "./Item";
 import MapController from "./MapController";
 
 type Transform = {
@@ -33,13 +33,14 @@ class Player {
         Player.ChangeSkin("normal.png");
     }
 
-    static GetInventory() : Item[]{
+    static GetInventory(): Item[] {
         return this.inventory;
     }
 
     static AddItem(item: Item) {
         this.current = item;
-        Player.ChangeSkin(item.image);
+        const image = item instanceof ItemHidden ? "normal.png": item.image
+        Player.ChangeSkin(image);
         //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
     }
 
@@ -61,10 +62,10 @@ class Player {
         // this.playerElement.style.backgroundImage = `url(personagem2.png)`;
         this.Rotation("up");
         Player.ChangeSkin("normal.png");
-        this.SetPosition(this._initialPosition.x, this._initialPosition.y );
+        this.SetPosition(this._initialPosition.x, this._initialPosition.y);
     }
 
-    static Run(){
+    static Run() {
         this.Reset();
     }
 
@@ -85,7 +86,7 @@ class Player {
                 break;
         }
         const home = MapController.GetHome();
-        if(home.x == x && home.y == y){
+        if (home.x == x && home.y == y) {
             this.RemoveItem();
         }
         if (!MapController.IsCollider(x, y))

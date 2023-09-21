@@ -77,7 +77,9 @@ class MapController {
     static ClearItens() {
         for (const item of this.listItens.keys()) {
             this.RemoveItem(item.x, item.y)
+            this.listItens.delete(item)
         }
+        console.log(this.listItens)
     }
 
     static IsCollider(x: number, y: number): boolean {

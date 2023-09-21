@@ -2,6 +2,7 @@ import Level from ".";
 import App from "../App";
 import Item from "../Item";
 import MapController from '../MapController';
+import Player from "../Player";
 
 // Comandos de seleção
 class Level3 extends Level{
@@ -13,11 +14,18 @@ class Level3 extends Level{
     }
 
     Init() {
-        MapController.CreateItem(Item.Hidden(), 9, 7);
-        MapController.CreateItem(Item.Hidden(), 13, 22);
-        //MapController.CreateItem(Item.Hidden(), 7, 0);
-        //MapController.CreateItem(Item.Hidden(), 0, 3);
+        console.log("Init","Fase 3")
+        MapController.CreateItem(Item.Hidden("Chocolate"), 9, 7);
+        MapController.CreateItem(Item.Hidden("Ovo"), 13, 22);
+        Player.SetInitialPosition(9, 11);
+        MapController.SetHome(9, 11);
     }
+
+    Finish(): boolean {
+        const items = Player.GetInventory();
+        return items[0]?.name == "Chocolate" || items[1]?.name == "Chocolate";
+    }
+
 }
 
 export default Level3;

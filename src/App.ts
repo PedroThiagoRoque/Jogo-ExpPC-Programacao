@@ -27,6 +27,11 @@ class App {
     }
 
     SetLevel(level: LevelType) {
+        if(this.level){
+            this.level.Destroy();
+            this.level.app = null;
+            this.level = null;
+        }
         const instance = new level;
         this.level = instance;
         instance.app = this;
@@ -46,7 +51,7 @@ class App {
             this.modal.classList.add("hide");
         }
         (this.modal.querySelector("#finish button#menu") as HTMLButtonElement).onclick = () => {
-            this.level.Reset();
+            this.level.Destroy();
             this.modal.querySelector("#welcome").classList.add("active");
             this.modal.querySelector("#finish").classList.remove("active");
         }

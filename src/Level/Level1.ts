@@ -14,6 +14,7 @@ class Level1 extends Level {
     }
 
     Init() {
+        console.log("Init","Fase 1")
         MapController.CreateItem(Item.Pao(), 9, 9);
         MapController.CreateItem(Item.Presunto(), 8, 11);
         MapController.CreateItem(Item.Queijo(), 9, 12);

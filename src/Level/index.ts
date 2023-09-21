@@ -40,13 +40,17 @@ class Level {
         this.app.Finish(this.Finish());
     }
 
-    Finish() : boolean {
+    Finish(): boolean {
         return false;
     }
 
-    Reset(){
+    Reset() {
         MapController.ClearItens();
         this.Init();
+    }
+
+    Destroy() {
+        MapController.ClearItens();
     }
 
     get app() {

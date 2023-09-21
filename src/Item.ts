@@ -1,23 +1,26 @@
+
+type ItemName = "Pao" | "Queijo" | "Presunto" | "Ovo" | "Leite" | "Farinha" | "Chocolate"
+
 class Item {
 
-    private _name: string;
+    private _name: ItemName;
     private _image: string;
     private _element: HTMLImageElement;
 
-    constructor(name: string = "", image: string = "") {
+    constructor(name: ItemName, image: string = "") {
         this.setItem(name, image);
     }
 
-    setItem(name: string, image: string) {
+    setItem(name: ItemName, image: string) {
         this._name = name;
         this._image = image;
     }
 
-    remove(){
+    remove() {
         this.element.remove();
     }
 
-    public get name() {
+    public get name(): ItemName {
         return this._name;
     }
 
@@ -33,37 +36,54 @@ class Item {
         return this._element;
     }
 
-    static Queijo(){
+    static Queijo() {
         return new Item("Queijo", "queijo.png");
     }
 
-    static Pao(){
+    static Pao() {
         return new Item("Pao", "pao.png");
     }
-    
-    static Presunto(){
+
+    static Presunto() {
         return new Item("Presunto", "presunto.png");
     }
 
-    static Ovo(){
+    static Ovo() {
         return new Item("Ovo", "ovo.png");
     }
 
-    static Leite(){
+    static Leite() {
         return new Item("Leite", "leite.png");
     }
 
-    static Farinha(){
+    static Farinha() {
         return new Item("Farinha", "farinha.png");
     }
 
-    static Hidden(){
-        return new Item("Oculto", "question.png");
+    static Hidden(name: ItemName) {
+        return new ItemHidden(name, "question.png");
     }
-    
-    static Chocolate(){
+
+    static Chocolate() {
         return new Item("Chocolate", "chocolate.png");
     }
+
+    static GetImageItem(name: ItemName) {
+        const map: Record<ItemName, string> = {
+            Pao: "",
+            Queijo: "",
+            Presunto: "",
+            Ovo: "",
+            Leite: "",
+            Farinha: "",
+            Chocolate: ""
+
+        }
+        return map[name];
+    }
+}
+
+export class ItemHidden extends Item {
 }
 
 export default Item;
