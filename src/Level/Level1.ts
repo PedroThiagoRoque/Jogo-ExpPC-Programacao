@@ -5,21 +5,26 @@ import MapController from '../MapController';
 import Player from "../Player";
 
 // Comandos Sequenciais
-class Level1 extends Level{
+class Level1 extends Level {
 
     public static id = "Fase 1";
 
-    Awake(){
+    Awake() {
         this.app.ToolBox(["block_move", "block_left", "block_right", "block_pickup"]);
     }
 
     Init() {
-        MapController.CreateItem(Item.Pao(), 9, 2);
-        MapController.CreateItem(Item.Presunto(), 9, 5);
-        MapController.CreateItem(Item.Queijo(), 9, 11);
-        MapController.CreateItem(Item.Pao(), 10, 11);
-        Player.SetInitialPosition(9, 4);
-        MapController.SetHome(9, 4);
+        MapController.CreateItem(Item.Pao(), 9, 9);
+        MapController.CreateItem(Item.Presunto(), 8, 11);
+        MapController.CreateItem(Item.Queijo(), 9, 12);
+        MapController.CreateItem(Item.Pao(), 10,11);
+        Player.SetInitialPosition(9, 11);
+        MapController.SetHome(9, 11);
+    }
+
+    Finish(): boolean {
+        const items = Player.GetInventory();
+        return (items.length == 4 && items[0].name == "Pao" && items[1].name == "Queijo" && items[2].name == "Presunto" && items[3].name == "Pao");
     }
 }
 

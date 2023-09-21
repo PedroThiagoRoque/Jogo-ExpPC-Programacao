@@ -68,8 +68,8 @@ class App {
         this.level.Init();
         this.workspace.updateToolbox(this.toolbox)
         // this.workspace = Blockly.inject('blocklyDiv', { toolbox: this.toolbox });
-        //   const temp = { "type": "block_start", "id": "Q@]:+vc8mu`XtIUv^]n)", "x": 200, "y": 200, "movable": false, "editable": false, "inputs": { "command": { "block": { "type": "block_right", "id": "cCX:@%8lo#QEDBMNZ*RM", "next": { "block": { "type": "block_move", "id": "73T0qIE@{D(%38Pg1W,^", "next": { "block": { "type": "block_left", "id": "D#q,}-jzb~~-vRO7ar=$", "next": { "block": { "type": "block_left", "id": "m/CY2UTKl(-UM|JG2a:;", "next": { "block": { "type": "block_move", "id": "NnLw^cSq6q1KpCw-O~*V" } } } } } } } } } } } };
-        //    Blockly.serialization.blocks.append(temp, this.workspace);
+        //const temp = { "type": "block_start", "id": "gaoezOME?THl]Piw#@!r", "x": 200, "y": 200, "editable": false, "inputs": { "command": { "block": { "type": "block_left", "id": "vyM$.!o?wSPwfiw9l?h[", "next": { "block": { "type": "block_move", "id": "AYMk~fzzPB~CeqEt`s9t", "next": { "block": { "type": "block_move", "id": "%FbuCvOeohbbI6E}uh;M", "next": { "block": { "type": "block_pickup", "id": "EF=R*=C^{pc-Q+T]ca@H", "next": { "block": { "type": "block_right", "id": "~_bo]91PljD?70*l1HOs", "next": { "block": { "type": "block_right", "id": "^FjlEXPNmMUlsG5,:[EJ", "next": { "block": { "type": "block_move", "id": "4q4Q_TmQoA~aE/9-RsVC", "next": { "block": { "type": "block_move", "id": "#I[SdAUs9IfUB0J(jz.-", "next": { "block": { "type": "block_move", "id": "]ZWrWr[a;K)+YzP;XV;Z", "next": { "block": { "type": "block_pickup", "id": "Xr(a$S!FEsKP:yvHf{L6", "next": { "block": { "type": "block_right", "id": "c7(K1)}!|[C1q_C*#2L+", "next": { "block": { "type": "block_right", "id": "2xSr,T%oRR%?V7I8-$U]", "next": { "block": { "type": "block_move", "id": "16*[Mx8U*@`zYETx5clg", "next": { "block": { "type": "block_right", "id": "NP)Dh_DxGZV9JO~qSFs[", "next": { "block": { "type": "block_move", "id": "Rft5=_}}lz:2}AYSOr@]", "next": { "block": { "type": "block_pickup", "id": "l:yY/x$d9=1;D7m?ggmw", "next": { "block": { "type": "block_left", "id": "fuLiV||~Dc)F4kSEUp0l", "next": { "block": { "type": "block_left", "id": "{uW+5E|]zZC-y^Y.YPEk", "next": { "block": { "type": "block_move", "id": "cPcTP6Y=i069M@egEi]l", "next": { "block": { "type": "block_move", "id": "JM~R81c;6knDeLE%}T_)", "next": { "block": { "type": "block_pickup", "id": "iD+hh8O/qaGeXcp-QVZH", "next": { "block": { "type": "block_left", "id": "B:@/)sK{KrLYpc=q=Sb?", "next": { "block": { "type": "block_left", "id": "hCe#ud:0Nr;D?O?C[[u3", "next": { "block": { "type": "block_move", "id": "P,!.1ZrH=@0wC;Eq#$@$" } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } };
+       // Blockly.serialization.blocks.append(temp, this.workspace);
 
         Blockly.serialization.blocks.append({ type: 'block_start', x: 200, y: 200 }, this.workspace);
     }
@@ -80,10 +80,21 @@ class App {
         await runtime.Run(this.workspace);
     }
 
-    Finish() {
+    Finish(result: boolean) {
         this.modal.classList.remove("hide");
         this.modal.querySelector("#welcome").classList.remove("active");
-        this.modal.querySelector("#finish").classList.add("active");
+        const finishEl = this.modal.querySelector("#finish");
+        finishEl.setAttribute("class", "modal-content " + (result ? "success" : "error"))
+        finishEl.querySelector(".title").innerHTML = result ? "Você acertou" : "Você errou";
+        finishEl.classList.add("active");
+        const listItens = finishEl.querySelector("ul");
+        listItens.innerHTML = "";
+        const items = Player.GetInventory();
+        items.forEach((item) => {
+            const element = document.createElement("li");
+            element.innerHTML = item.name;
+            listItens.append(element)
+        })
     }
 
     Import(blocks: any) {
@@ -119,7 +130,7 @@ class App {
         const json = Blockly.serialization.workspaces.save(this.workspace);
 
 
-        //     console.log(JSON.stringify(json.blocks.blocks))
+        console.log(JSON.stringify(json.blocks.blocks))
         return CommandController.Import(json.blocks.blocks);
     }
 

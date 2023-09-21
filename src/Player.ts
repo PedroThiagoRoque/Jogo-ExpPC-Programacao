@@ -20,7 +20,8 @@ class Player {
 
     private static playerElement: HTMLDivElement;
     private static transform: Transform;
-    private static inventory?: Item;
+    private static inventory: Item[] = [];
+    private static current?: Item;
     private static _initialPosition = { x: 0, y: 0 };
 
     static Awake() {
@@ -32,15 +33,20 @@ class Player {
         Player.ChangeSkin("normal.png");
     }
 
+    static GetInventory() : Item[]{
+        return this.inventory;
+    }
+
     static AddItem(item: Item) {
-        this.inventory = item;
+        this.current = item;
         Player.ChangeSkin(item.image);
         //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
     }
 
     static RemoveItem() {
-        const item = this.inventory;
-        this.inventory = null;
+        const item = this.current;
+        this.current = null;
+        this.inventory.push(item)
         Player.ChangeSkin("normal.png");
         return item;
         //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
@@ -51,6 +57,7 @@ class Player {
     }
 
     static Reset() {
+        this.inventory = [];
         // this.playerElement.style.backgroundImage = `url(personagem2.png)`;
         this.Rotation("up");
         Player.ChangeSkin("normal.png");
@@ -76,6 +83,10 @@ class Player {
             case "right":
                 y += 1;
                 break;
+        }
+        const home = MapController.GetHome();
+        if(home.x == x && home.y == y){
+            this.RemoveItem();
         }
         if (!MapController.IsCollider(x, y))
             this.SetPosition(x, y);

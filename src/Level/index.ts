@@ -37,10 +37,11 @@ class Level {
         await this.app.Run();
         this.Finish();
         // this.Init();
-        this.app.Finish();
+        this.app.Finish(this.Finish());
     }
 
-    Finish() {
+    Finish() : boolean {
+        return false;
     }
 
     Reset(){

@@ -33,7 +33,7 @@ class MapController {
                     gridItemItem.classList.add("border");
                     items.push(null);
                     gridItemItem.setAttribute("solid", "false");
-                    gridItemItem.innerHTML = `<span>${i}x${j}</span>`;
+                    //gridItemItem.innerHTML = `<span>${i}x${j}</span>`;
                 } else {
                     gridItemItem.setAttribute("solid", "true");
                     items.push(true);
