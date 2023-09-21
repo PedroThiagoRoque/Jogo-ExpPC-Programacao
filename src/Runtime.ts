@@ -55,7 +55,7 @@ class Runtime {
             }
         } else if (command instanceof CommandFor) {
             for (let i = 0; i < command.iterator; i++) {
-                await Runtime.delay(800);
+                //await Runtime.delay(800);
                 block.select();
                 let commandFor: Command = command.command;
                 while (commandFor != null) {

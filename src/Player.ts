@@ -21,7 +21,7 @@ class Player {
     private static playerElement: HTMLDivElement;
     private static transform: Transform;
     private static inventory: Item[] = [];
-    private static current?: Item;
+    private static hand?: Item;
     private static _initialPosition = { x: 0, y: 0 };
 
     static Awake() {
@@ -33,20 +33,24 @@ class Player {
         Player.ChangeSkin("normal.png");
     }
 
+    static GetHand(){
+        return this.hand;
+    }
+
     static GetInventory(): Item[] {
         return this.inventory;
     }
 
     static AddItem(item: Item) {
-        this.current = item;
+        this.hand = item;
         const image = item instanceof ItemHidden ? "normal.png": item.image
         Player.ChangeSkin(image);
         //this.playerElement.style.backgroundImage = `url(personagem2${item.name}.png)`;
     }
 
     static RemoveItem() {
-        const item = this.current;
-        this.current = null;
+        const item = this.hand;
+        this.hand = null;
         this.inventory.push(item)
         Player.ChangeSkin("normal.png");
         return item;

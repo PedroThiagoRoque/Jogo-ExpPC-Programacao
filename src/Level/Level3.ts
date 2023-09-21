@@ -22,8 +22,8 @@ class Level3 extends Level{
     }
 
     Finish(): boolean {
-        const items = Player.GetInventory();
-        return items[0]?.name == "Chocolate" || items[1]?.name == "Chocolate";
+        const items = Player.GetHand();
+        return items?.name == "Chocolate" ?? false;
     }
 
 }
